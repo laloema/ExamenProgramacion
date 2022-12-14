@@ -57,5 +57,11 @@ namespace ExamenProgramacion.Controllers
 
             return Ok();
         }
+
+        //Recibir datos Json y combinar los recibidos con los entregados 
+        public IActionResult Prueba5()
+        {
+            return Ok();
+        }
     }
 }
