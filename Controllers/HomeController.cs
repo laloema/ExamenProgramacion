@@ -62,6 +62,25 @@ namespace ExamenProgramacion.Controllers
         [HttpPost]
         public IActionResult Prueba5()
         {
+            /*
+             * Ejemplo de Respuesta:
+             * [{
+                    "id": 1,
+                    "nombre": "Lolita",
+                    "apellido": "Kreiger",
+                    "pedidos": [
+                        {
+                            "ordenId": 4568,
+                            "producto": "kiwi",
+                            "cantidad": 2
+                        }
+                    ],
+                    "usuario": "Clementina81",
+                    "email": "Sherman.Jacobi@hotmail.com",
+                    "idUnique": "7a04e5d6-594a-44a6-87ee-3f7f6cf72ffb"
+                }]
+             */
+
             //List<DatosRecibidos> res = _dataGeneratorService.GenerarUsuarios();
             List<DatosUsuario> res = _dataGeneratorService.GenerarUsuariosDatos();
             List<DatosPedidos> respedidos = _dataGeneratorService.GenerarPedidos();

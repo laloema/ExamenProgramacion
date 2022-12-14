@@ -65,20 +65,6 @@ namespace ExamenProgramacion.Service
             }
         }
 
-        public List<DatosRecibidos> GenerarUsuarios()
-        {
-            List<DatosRecibidos> list = new List<DatosRecibidos>();
-            for (int i = 1; i < 100; i++)
-            {
-                var persona = new Faker<DatosRecibidos>()
-                        .RuleFor(x => x.Id, f => i)
-                        .RuleFor(x => x.Nombre, (f, x) => f.Name.FirstName())
-                        .RuleFor(x => x.Apellido, (f, x) => f.Name.LastName());
-                list.Add(persona.Generate());
-            }
-            return list;
-        }
-
         public List<DatosUsuario> GenerarUsuariosDatos()
         {
             List<DatosUsuario> list = new List<DatosUsuario>();

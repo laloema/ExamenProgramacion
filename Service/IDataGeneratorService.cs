@@ -8,7 +8,6 @@ namespace ExamenProgramacion.Service
         List<PalabraDTO> GenerarPalabras();
         List<DatosPedidos> GenerarPedidos();
         List<Persona> GenerarPersonas();
-        List<DatosRecibidos> GenerarUsuarios();
         List<DatosUsuario> GenerarUsuariosDatos();
     }
 }
