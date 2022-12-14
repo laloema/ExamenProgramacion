@@ -81,7 +81,7 @@ namespace ExamenProgramacion.Controllers
                 }]
              */
 
-            //List<DatosRecibidos> res = _dataGeneratorService.GenerarUsuarios();
+            
             List<DatosUsuario> res = _dataGeneratorService.GenerarUsuariosDatos();
             List<DatosPedidos> respedidos = _dataGeneratorService.GenerarPedidos();
 
