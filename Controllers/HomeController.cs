@@ -59,8 +59,14 @@ namespace ExamenProgramacion.Controllers
         }
 
         //Recibir datos Json y combinar los recibidos con los entregados 
+        [HttpPost]
         public IActionResult Prueba5()
         {
+            //List<DatosRecibidos> res = _dataGeneratorService.GenerarUsuarios();
+            List<DatosUsuario> res = _dataGeneratorService.GenerarUsuariosDatos();
+            List<DatosPedidos> respedidos = _dataGeneratorService.GenerarPedidos();
+
+            
             return Ok();
         }
     }

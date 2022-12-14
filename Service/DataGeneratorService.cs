@@ -27,6 +27,23 @@ namespace ExamenProgramacion.Service
             return list;
         }
 
+        public List<DatosPedidos> GenerarPedidos()
+        {
+            var productos = new[] { "apple", "banana", "orange", "strawberry", "kiwi" };
+            var pedidos = new List<DatosPedidos>();
+            for (int i = 1; i < 500; i++)
+            {
+                var persona = new Faker<DatosPedidos>()
+                    .RuleFor(x => x.Id, f => f.Random.Number(1, 100))
+                    .RuleFor(x => x.OrdenId, f => f.Random.Number(1, 10000))
+                    .RuleFor(x => x.Producto, (f, x) => f.PickRandom(productos))
+                    .RuleFor(x => x.Cantidad, (f, x) => f.Random.Number(1, 10));
+                pedidos.Add(persona.Generate());
+            }
+
+            return pedidos;
+        }
+
         public List<Persona> GenerarPersonas()
         {
             try
@@ -46,6 +63,35 @@ namespace ExamenProgramacion.Service
             {
                 return null;
             }
+        }
+
+        public List<DatosRecibidos> GenerarUsuarios()
+        {
+            List<DatosRecibidos> list = new List<DatosRecibidos>();
+            for (int i = 1; i < 100; i++)
+            {
+                var persona = new Faker<DatosRecibidos>()
+                        .RuleFor(x => x.Id, f => i)
+                        .RuleFor(x => x.Nombre, (f, x) => f.Name.FirstName())
+                        .RuleFor(x => x.Apellido, (f, x) => f.Name.LastName());
+                list.Add(persona.Generate());
+            }
+            return list;
+        }
+
+        public List<DatosUsuario> GenerarUsuariosDatos()
+        {
+            List<DatosUsuario> list = new List<DatosUsuario>();
+            for (int i = 1; i < 100; i++)
+            {
+                var persona = new Faker<DatosUsuario>()
+                        .RuleFor(x => x.Id, f => i)
+                        .RuleFor(x => x.idUnique, f => Guid.NewGuid())
+                        .RuleFor(x => x.Email, (f, x) => f.Internet.Email())
+                        .RuleFor(x => x.Usuario, (f, x) => f.Internet.UserName());
+                list.Add(persona.Generate());
+            }
+            return list;
         }
     }
 }
