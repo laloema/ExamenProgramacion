@@ -2,6 +2,7 @@
 using ExamenProgramacion.Service;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -71,8 +72,46 @@ namespace ExamenProgramacion.Controllers
         {
             //resultado Esperado {"a":["palabra1","Palabra2"],"e":["pelebre1"],"i":["pilibri1"]}
             List<PalabraDTO> palabras = _dataGeneratorService.GenerarPalabras();
+            Palabras PalabrasPorLetra = new();
+            List<String> a = new();
+            List<String> e = new();
+            List<String> i = new();
+            List<String> o = new();
+            List<String> u = new();
 
-            return Ok();
+            for (int j = 0; j <= palabras.Count-1; j++)
+            {
+                var palabrasAgrupadas = palabras[j].Palabra.GroupBy(x => x).OrderByDescending(x => x.Count());
+                foreach (var palabra in palabrasAgrupadas) {
+                    if (palabra.Key.ToString() == "a") {
+                        a.Add(palabras[j].Palabra);
+                        break;
+                    } else if (palabra.Key.ToString() == "e") {
+                        e.Add(palabras[j].Palabra);
+                        break;
+                    } else if (palabra.Key.ToString() == "i") {
+                        i.Add(palabras[j].Palabra);
+                        break;
+                    } else if (palabra.Key.ToString() == "o") {
+                        o.Add(palabras[j].Palabra);
+                        break;
+                    } else if (palabra.Key.ToString() == "u") { 
+                         u.Add(palabras[j].Palabra);
+                        break;
+                    }
+                }
+            }
+  
+            PalabrasPorLetra = new()
+            {
+                a = a.OrderByDescending(x => x.Count(n => n == 'a')).ToList(), 
+                e = e.OrderByDescending(x => x.Count(n => n == 'e')).ToList(), 
+                i = i.OrderByDescending(x => x.Count(n => n == 'i')).ToList(), 
+                o = o.OrderByDescending(x => x.Count(n => n == 'o')).ToList(), 
+                u = u.OrderByDescending(x => x.Count(n => n == 'u')).ToList(),
+            };
+
+            return Json(PalabrasPorLetra);
         }
 
         //Recibir datos Json y combinar los recibidos con los entregados 
