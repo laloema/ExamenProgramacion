@@ -2,6 +2,7 @@
 using ExamenProgramacion.Service;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ExamenProgramacion.Controllers
@@ -27,8 +28,21 @@ namespace ExamenProgramacion.Controllers
             //Agrupar y ordenar descendentemente por numero de repeticiones 
             //Ejemplo de respueta [{"valor":#numero,"contador":#Repeticiones},{"valor":#numero,"contador":#Repeticiones}]
             int[] arr1 = new int[] { 5, 9, 1, 2, 3, 7, 5, 6, 7, 3, 7, 6, 8, 5, 4, 9, 6, 2 };
-
-            return Ok();
+            List<int> arr1List = arr1.ToList();
+            List<Numeros> list = new();
+            for (int i = 0; i <= arr1List.Count-1; i++) {
+                if (!list.Any(n => n.Valor == arr1List[i]))
+                {
+                    Numeros numeros = new()
+                    {
+                        Valor = arr1List[i],
+                        Contador = arr1List.FindAll(n => n == arr1List[i]).Count
+                    };
+                    list.Add(numeros);
+                }
+            }
+            list = list.OrderByDescending(n => n.Contador).ToList();
+            return Json(list);
         }
 
         //Buscar por Rango de Edad >25 & <65 y las personas que inicien con la letra enviada  
