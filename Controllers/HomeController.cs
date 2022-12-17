@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Principal;
+using System.Text;
+using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace ExamenProgramacion.Controllers
 {
@@ -116,7 +120,7 @@ namespace ExamenProgramacion.Controllers
 
         //Recibir datos Json y combinar los recibidos con los entregados 
         [HttpPost]
-        public IActionResult Prueba5()
+        public IActionResult Prueba5([FromBody] System.Text.Json.JsonElement response)
         {
             /*
              * Ejemplo de Respuesta:
@@ -137,12 +141,33 @@ namespace ExamenProgramacion.Controllers
                 }]
              */
 
-            
+            var aux = JsonConvert.DeserializeObject<List<DatosCompletos>>(response.ToString());
             List<DatosUsuario> res = _dataGeneratorService.GenerarUsuariosDatos();
             List<DatosPedidos> respedidos = _dataGeneratorService.GenerarPedidos();
-
-            
-            return Ok();
+            if (aux != null)
+            {
+                for (int i = 0; i<= aux.Count-1; i++)
+                {
+                    DatosUsuario currentRes = res.Find(r => r.Id == aux[i].id);
+                    DatosPedidos currentrespedidos = respedidos.Find(r => r.Id == aux[i].id);
+                    if (currentrespedidos != null)
+                    {
+                        aux[i].pedidos = new()
+                        {
+                            OrdenId = currentrespedidos.OrdenId,
+                            Producto = currentrespedidos.Producto,
+                            Cantidad = currentrespedidos.Cantidad,
+                        };
+                    }
+                    if (currentRes != null)
+                    {
+                        aux[i].usuario = currentRes.Usuario;
+                        aux[i].email = currentRes.Email;
+                        aux[i].idUnique = currentRes.idUnique;
+                    }
+                } 
+            }
+            return Json(aux);
         }
     }
 }

@@ -7,4 +7,11 @@
         public string Producto { get; set; }
         public int Cantidad { get; set; }
     }
+    
+    public class DatosPedidosCompleto
+    {
+        public int OrdenId { get; set; }
+        public string Producto { get; set; }
+        public int Cantidad { get; set; }
+    }
 }
