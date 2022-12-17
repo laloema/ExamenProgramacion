@@ -50,8 +50,8 @@ namespace ExamenProgramacion.Controllers
         {
             //500 personas
             List<Persona> listaPersonas = _dataGeneratorService.GenerarPersonas();
-
-            return Ok();
+            List<Persona> EnRango = listaPersonas.FindAll(p => p.Edad > 25 && p.Edad < 65 && p.Nombre[0].ToString().ToLower() == letra.ToLower());
+            return Json(EnRango);
         }
 
         //Separar lista de numeros en pares o impares
