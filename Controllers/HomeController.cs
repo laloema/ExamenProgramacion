@@ -59,8 +59,11 @@ namespace ExamenProgramacion.Controllers
         {
             //Resultado esperado {"pares":[300,34],"impares":[81,3]}
             List<int> numeros = _dataGeneratorService.GenerarNumeros();
-
-            return Ok();
+            NumerosParesImpares numerosSeparados = new() { 
+                Pares = numeros.FindAll(n => n%2 == 0),
+                Impares = numeros.FindAll(n => n%2 != 0)
+            };
+            return Json(numerosSeparados);
         }
 
         //Agrupar palabras por mayor numero de vocales
