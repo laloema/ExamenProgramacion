@@ -10,4 +10,14 @@
         public int U { get; set; }
 
     }
+    
+    public class Palabras
+    {
+        public List<string> a { get; set; }
+        public List<string> e { get; set; }
+        public List<string> i { get; set; }
+        public List<string> o { get; set; }
+        public List<string> u { get; set; }
+
+    }
 }
